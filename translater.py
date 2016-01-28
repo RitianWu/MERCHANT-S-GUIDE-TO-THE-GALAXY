@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import re
-from config import *
+from config import Roman_Num, Info_Roman, regex_roman
 
 """
 Description: The translation between Romans and Numbers
@@ -13,11 +13,11 @@ Data:2016-2-22
 
 class Translater(object):
 
-    def __init__(self):
+    def __init__(self, roman_num=None, info_roman=None):
         """ Init for Translater
         """
-        self.__roman_num = Roman_Num
-        self.__info_roman = Info_Roman
+        self.__roman_num = roman_num if roman_num else Roman_Num
+        self.__info_roman = info_roman if info_roman else Info_Roman
 
     def __check_roman_info(self, roman_str):
         """ check the validity of roman string
@@ -43,9 +43,11 @@ class Translater(object):
         sum = 0
         if self.__check_roman_info(roman_str):
             for i in range(len(roman_str) - 1):
-                if Roman_Num[roman_str[i + 1]] > Roman_Num[roman_str[i]]:
-                    sum = sum - Roman_Num[roman_str[i]]
+                if self.__roman_num[roman_str[i + 1]] > self.__roman_num[roman_str[i]]:
+                    sum = sum - self.__roman_num[roman_str[i]]
                 else:
-                    sum = sum + Roman_Num[roman_str[i]]
-            sum = sum + Roman_Num[roman_str[len(roman_str) - 1]]
+                    sum = sum + self.__roman_num[roman_str[i]]
+            sum = sum + self.__roman_num[roman_str[-1]]
+        else:
+            print "the roman string is invalid!"
         return sum
