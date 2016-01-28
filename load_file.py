@@ -52,12 +52,12 @@ def load_file(file_name):
             index_is = line_list.index('is')
             question_price.setdefault(line_list[len(
                 line_list) - 2], {' '.join(line_list[index_is + 1: len(line_list) - 2]): ''})
+        # unknown
         else:
-            print "I don't know what the hell are you talking about..."
-            unknown.append(line.strip('\n'))
-    print condition_roman, condition_price, question_roman, question_price,
-    # unknown
-    return condition_roman, condition_price, question_roman, question_price
+            # print "I don't know what the hell are you talking about..."
+            unknown.append(line)
+    # print condition_roman, condition_price, question_roman, question_price, unknown
+    return condition_roman, condition_price, question_roman, question_price, unknown
 
 
 if __name__ == "__main__":
