@@ -26,22 +26,36 @@ def load_file(file_name):
     # question line from task file
     question_roman = {}
     question_price = {}
+    # unknown
+    unknown = []
 
     for line in open(file_name):
+        # conditon roman analysis
         if re.search(r'[IXVLCDM]$', line):
-            # conditon roman analysis
             line_list = line.strip('\n').split(' ')
             condition_roman[line_list[0]] = line_list[-1]
-        # elif re.search(r'\d* Credits', line):
-        # 	# conditon price analysis
-        # 	pass
-        # elif re.search(r'^how much is', line):
-        # 	# question roman
-        # 	pass
-        # elif re.search(r'^how many Credits is', line):
-        # 	# question price
-        # 	pass
-
+        # conditon price analysis
+        elif re.search(r'is \d* Credits', line):
+            line_list = line.strip('\n').split(' ')
+            index_is = line_list.index('is')
+            condition_price.setdefault(line_list[
+                index_is - 1], {' '.join(line_list[0:index_is - 1]): int(line_list[index_is + 1])})
+        # question roman
+        elif re.search(r'^how much is', line):
+            line_list = line.strip('\n').split(' ')
+            index_is = line_list.index('is')
+            question_roman[
+                ' '.join(line_list[index_is + 1: len(line_list) - 1])] = ''
+        # question price
+        elif re.search(r'^how many Credits is', line):
+            line_list = line.strip('\n').split(' ')
+            index_is = line_list.index('is')
+            question_price.setdefault(line_list[len(
+                line_list) - 2], {' '.join(line_list[index_is + 1: len(line_list) - 2]): ''})
+        else:
+            print "I don't know what the hell are you talking about..."
+            unknown.append(line.strip('\n'))
+    print condition_roman, condition_price, question_roman, question_price, unknown
     return condition_roman, condition_price, question_roman, question_price
 
 
