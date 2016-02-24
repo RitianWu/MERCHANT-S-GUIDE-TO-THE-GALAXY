@@ -6,7 +6,7 @@ import re
 """
 Description: Loading and analysis content from the task file
 Auth: Hao
-Data:2016-2-23
+Data: 2016-2-23
 """
 
 
@@ -55,7 +55,8 @@ def load_file(file_name):
         else:
             print "I don't know what the hell are you talking about..."
             unknown.append(line.strip('\n'))
-    print condition_roman, condition_price, question_roman, question_price, unknown
+    print condition_roman, condition_price, question_roman, question_price,
+    # unknown
     return condition_roman, condition_price, question_roman, question_price
 
 
