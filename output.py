@@ -28,14 +28,17 @@ def output(file_name, answer_roman, answer_price, unknown):
             index_is = line_list.index('is')
             key_info = ' '.join(line_list[index_is + 1: len(line_list) - 1])
             answers.append("{key} is {value}".format(
-                    key=key_info, value=answer_roman[key_info]))
+                key=key_info, value=answer_roman[key_info]))
 
         elif re.search(r'^how many Credits is', line):
             line_list = line.strip('\n').split(' ')
             index_is = line_list.index('is')
-            key_info = ' '.join(line_list[index_is + 1: len(line_list) - 2])
+            # eg., glob prok
+            key_info1 = ' '.join(line_list[index_is + 1: len(line_list) - 2])
+            # eg., glob prok Gold
+            key_info2 = ' '.join(line_list[index_is + 1: len(line_list) - 1])
             answers.append("{key} is {value} Credits".format(
-                    key=key_info, value=answer_price[line_list[len(line_list) - 2]][key_info]))
+                key=key_info2, value=answer_price[line_list[len(line_list) - 2]][key_info1]))
 
         elif line in unknown:
             answers.append(
